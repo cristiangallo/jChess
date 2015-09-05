@@ -3,7 +3,10 @@ package entidades;
 /**
  * Created by cgallo on 31/07/15.
  */
-public class Peon extends Pieza{
+
+import appExceptions.appException;
+
+public final class Peon extends Pieza{
 
     public boolean isFueMovida() {
         return fueMovida;
@@ -24,15 +27,11 @@ public class Peon extends Pieza{
     }
 
     @Override
-    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws Exception{
-        // esta variable booleana la usamos por legibilidad del código ya que por ahí es
-        // menos code readeable por !f
-        boolean isOk = true;
+    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
         // verificar que por lo menos no se nos caiga del tablero y si la posición destino
         // está ocupada que sea una pieza contraria
-        if (super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY) != isOk){
-            throw new Exception("No es un movimiento válido.");
-        }
+        super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
+
         // hacia adelante de a dos si no se movió la pieza
         // si se movió, de a uno hacia adelante
         // si come, uno adelante a la derecha o uno adelante a la izquierda
@@ -44,8 +43,7 @@ public class Peon extends Pieza{
             (desdeX == hastaX && hastaY - desdeY == 1) || (Math.abs(Character.getNumericValue(hastaX) - Character.getNumericValue(desdeX)) == 1 &&
                     desdeY - desdeX == 1)) return true;
 
-
-        throw new Exception("No es un movimiento válido.");
+        throw new appException("No es un movimiento válido.");
     }
 
 }

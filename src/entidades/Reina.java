@@ -3,7 +3,10 @@ package entidades;
 /**
  * Created by cgallo on 31/07/15.
  */
-public class Reina extends Pieza{
+
+import appExceptions.appException;
+
+public final class Reina extends Pieza{
 
     private Reina(){}
 
@@ -14,29 +17,20 @@ public class Reina extends Pieza{
     }
 
     @Override
-    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws Exception{
-        // esta variable booleana la usamos por legibilidad del código ya que por ahí es
-        // menos code readeable por !f
-        boolean isOk = true;
+    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
         // verificar que por lo menos no se nos caiga del tablero y si la posición destino
         // está ocupada que sea una pieza contraria
-        if (super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY) != isOk){
-            return false;
-        }
+        super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
 
-        // desplazamiento horizontal
-        if(desdeX == hastaX)
-            return true;
-
-        // desplazamiento vertical
-        if(desdeY == hastaY)
+        // desplazamiento horizontal o vertical
+        if(desdeX == hastaX || desdeY == hastaY)
             return true;
 
         // en diagonal, los desplazamientos en X e Y deben ser iguales
         if(hastaX - desdeX == hastaY - desdeY)
             return true;
 
-        return false;
+        throw new appException("El movimiento que querés realizar no es válido.");
     }
 
 }

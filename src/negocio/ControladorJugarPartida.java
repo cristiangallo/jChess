@@ -3,14 +3,14 @@ package negocio;
 
 import dataDB.CatalogoJugadores;
 import entidades.*;
-
+import appExceptions.appException;
 import java.util.ArrayList;
 
 /**
  * Created by cgallo on 04/08/15.
  */
 public class ControladorJugarPartida {
-
+    
     private CatalogoJugadores catalogoJugadores = CatalogoJugadores.getInstance();
 
     private Jugador jugadorBlancoActual;
@@ -68,7 +68,7 @@ public class ControladorJugarPartida {
         }
     }
 
-    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws NullPointerException, Exception{
+    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
 
         Pieza pieza = partidaActual.moverPieza(desdeX, desdeY, hastaX, hastaY);
 

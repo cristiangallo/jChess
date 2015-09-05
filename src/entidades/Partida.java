@@ -1,11 +1,13 @@
 package entidades;
 
-import java.util.HashMap;
-import java.util.Objects;
-
 /**
  * Created by cgallo on 31/07/15.
  */
+
+import java.util.HashMap;
+import java.util.Objects;
+import appExceptions.appException;
+
 
 public class Partida {
 
@@ -99,8 +101,27 @@ public class Partida {
         this.tablero = tablero;
     }
 
-    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws Exception{
-        Pieza pieza = null;
+    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
+        Pieza pieza = tablero.get(new Posicion(desdeX, desdeY));
+        pieza.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
+        tablero.put(new Posicion(hastaX, hastaY), pieza);
+        tablero.remove(new Posicion(desdeX, desdeY));
+        cambiarTurno();
+
+
+        //todo esto lo moví dentro de la pieza porque es responsabilidad de ella
+        /*
+        try {
+
+            Pieza piezaTmp = tablero.get(new Posicion(hastaX, hastaY));
+            if (pieza.getColor() == piezaTmp.getColor()){
+                throw new Exception("Hay una pieza propia en esa posición");
+            }
+        } catch (appException e){
+            // si no hay nada en la posición puedo mover la pieza
+
+        }
+
         try {
             pieza = tablero.get(new Posicion(desdeX, desdeY));
             if (!Objects.equals(turno, pieza.getColor())) throw new Exception("Mueve el jugador " + turno);
@@ -123,6 +144,7 @@ public class Partida {
             tablero.remove(new Posicion(desdeX, desdeY));
             cambiarTurno();
         }
+        */
         return pieza;
     }
 
