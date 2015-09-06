@@ -103,49 +103,17 @@ public class Partida {
 
     public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
         Pieza pieza = tablero.get(new Posicion(desdeX, desdeY));
-        pieza.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
-        tablero.put(new Posicion(hastaX, hastaY), pieza);
-        tablero.remove(new Posicion(desdeX, desdeY));
-        cambiarTurno();
-
-
-        //todo esto lo moví dentro de la pieza porque es responsabilidad de ella
-        /*
         try {
-
-            Pieza piezaTmp = tablero.get(new Posicion(hastaX, hastaY));
-            if (pieza.getColor() == piezaTmp.getColor()){
-                throw new Exception("Hay una pieza propia en esa posición");
-            }
-        } catch (appException e){
-            // si no hay nada en la posición puedo mover la pieza
-
-        }
-
-        try {
-            pieza = tablero.get(new Posicion(desdeX, desdeY));
-            if (!Objects.equals(turno, pieza.getColor())) throw new Exception("Mueve el jugador " + turno);
-            pieza.getColor();
-            System.out.println(turno);
-            System.out.println(pieza.getNombre() + pieza.getColor());
-        } catch (NullPointerException e){
-            throw new Exception("No hay pieza en la posición inicial");
-        }
-
-        try {
-            pieza.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
-            Pieza piezaTmp = tablero.get(new Posicion(hastaX, hastaY));
-            if (pieza.getColor() == piezaTmp.getColor()){
-                throw new Exception("Hay una pieza propia en esa posición");
+            //si el movimiento es válido muevo la pieza
+            if (pieza.esMovimientoValido(desdeX, desdeY, hastaX, hastaY)){
+                tablero.put(new Posicion(hastaX, hastaY), pieza);
+                tablero.remove(new Posicion(desdeX, desdeY));
+                pieza.setFueMovida();
+                cambiarTurno();
             }
         } catch (NullPointerException e){
-            // si no hay nada en la posición puedo mover la pieza
-            tablero.put(new Posicion(hastaX, hastaY), pieza);
-            tablero.remove(new Posicion(desdeX, desdeY));
-            cambiarTurno();
+            throw new appException("No hay pieza en la posición desde donde intentás mover", e);
         }
-        */
         return pieza;
     }
-
 }
