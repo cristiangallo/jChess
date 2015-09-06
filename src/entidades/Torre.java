@@ -8,17 +8,6 @@ import appExceptions.appException;
 
 public final class Torre extends Pieza{
 
-    public boolean isFueMovida() {
-        return fueMovida;
-    }
-
-    public void setFueMovida() {
-
-        this.fueMovida = true;
-    }
-
-    private boolean fueMovida = false;
-
     private Torre(){}
 
     public Torre(String color, Partida partida){
@@ -32,9 +21,22 @@ public final class Torre extends Pieza{
 
         super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
 
-        //desplazamiento horizontal o vertical
-        if(desdeX == hastaX || desdeY == hastaY)
+        //desplazamiento vertical
+        if( desdeX == hastaX ) {
+            for (int y = desdeY + 1; y < hastaY - 1; y++){
+                Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(desdeX, y));
+                if (piezaEnElMedio != null) throw new appException("Hay una pieza en el medio.");
+            }
             return true;
+        }
+        //desplazamiento horizontal
+        if( desdeY == hastaY ) {
+            for (char x = (char)(desdeX + 1); x < (char)(hastaX - 1); x++){
+                Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(x, desdeY));
+                if (piezaEnElMedio != null) throw new appException("Hay una pieza en el medio.");
+            }
+            return true;
+        }
 
         throw new appException("El movimiento que querés realizar no es válido.");
     }
