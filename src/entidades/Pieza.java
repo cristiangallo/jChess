@@ -9,6 +9,16 @@ import appExceptions.appException;
 
 public abstract class Pieza {
 
+    private boolean fueMovida;
+
+    public boolean isFueMovida() {
+        return fueMovida;
+    }
+
+    public void setFueMovida() {
+        this.fueMovida = true;
+    }
+
     protected boolean gameOver = false;
 
     private String color;
@@ -64,12 +74,11 @@ public abstract class Pieza {
         //verifico que en la posición destino no haya una pieza propia
         try {
             Pieza piezaDestino = partida.getTablero().get(new Posicion(hastaX, hastaY));
-            System.out.println(pieza.getColor());
-            System.out.println(piezaDestino.getColor());
             if (Objects.equals(pieza.getColor(), piezaDestino.getColor()))
                 throw new appException("Hay una pieza propia en la posición hacia donde intentás mover");
         } catch (NullPointerException e){
-            //si no hay pieza en la posición destino todo bien
+            //esta excepcion se lanza porque no hay pieza en la casilla destino,
+            // por lo tanto es correcto el movimiento y no hay que manejarla.
         }
         return true;
     }
