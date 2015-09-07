@@ -8,17 +8,6 @@ import appExceptions.appException;
 
 public final class Rey extends Pieza{
 
-    private boolean fueMovida;
-
-    public boolean isFueMovida() {
-        return fueMovida;
-    }
-
-    public void setFueMovida() {
-
-        this.fueMovida = true;
-    }
-
     private Rey(){}
 
     public Rey(String color, Partida partida){
@@ -30,14 +19,14 @@ public final class Rey extends Pieza{
 
     @Override
     public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
-        // verificar que por lo menos no se nos caiga del tablero y si la posición destino
-        // está ocupada que sea una pieza contraria
         super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
-        // supongo que la distancia debería ser raíz de 2 = 1² + 1² pero estoy usando char para las x...
-        // if(Math.sqrt(Math.pow(Math.abs((hastaX - desdeX)),2)) + Math.pow(Math.abs((hastaY - desdeY)), 2) != Math.sqrt(2)){
-        //    return false;
-        //}
-        return true;
+
+        // la distancia de la posición origen a la destino debe ser 1
+        int distancia = (int) Math.abs((Math.abs((hastaX - desdeX))) - Math.abs((hastaY - desdeY)));
+        if(distancia == 1 || distancia == 0){
+            return true;
+        }
+        throw new appException("El movimiento que querés realizar no es válido.");
     }
 
 }
