@@ -20,10 +20,35 @@ public final class Alfil extends Pieza{
     public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
         super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
 
-        if (hastaX - desdeX != hastaY - desdeY)
-            throw new appException("El movimiento que querés realizar no es válido.");
+        // los desplazamientos en x e y deben ser idénticos
+        if (Math.abs(hastaX - desdeX) == Math.abs(hastaY - desdeY)) {
+            int y = desdeY;
+            for (char x = (char)(desdeX + 1); x < hastaX; x++){
+                if (hastaY - desdeY > 0) {
+                    y++;
+                } else {
+                    y--;
+                }
+                Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(x, y));
+                if (piezaEnElMedio != null) throw new appException("Hay una pieza en el medio.");
+            }
 
-        return true;
+            y = desdeY;
+            for (char x = (char)(desdeX - 1); hastaX < x; x--){
+                if (hastaY - desdeY > 0) {
+                    y++;
+                } else {
+                    y--;
+                }
+                Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(x, y));
+                if (piezaEnElMedio != null) throw new appException("Hay una pieza en el medio.");
+            }
+
+            return true;
+        }
+
+        throw new appException("El movimiento que querés realizar no es válido.");
+
     }
 
 }

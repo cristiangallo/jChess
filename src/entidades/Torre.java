@@ -23,7 +23,7 @@ public final class Torre extends Pieza{
 
         //desplazamiento vertical
         if( desdeX == hastaX ) {
-            for (int y = desdeY + 1; y < hastaY - 1; y++){
+            for (int y = desdeY + 1; y < hastaY; y++){
                 Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(desdeX, y));
                 if (piezaEnElMedio != null) throw new appException("Hay una pieza en el medio.");
             }
@@ -31,7 +31,7 @@ public final class Torre extends Pieza{
         }
         //desplazamiento horizontal
         if( desdeY == hastaY ) {
-            for (char x = (char)(desdeX + 1); x < (char)(hastaX - 1); x++){
+            for (char x = (char)(desdeX + 1); x < hastaX; x++){
                 Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(x, desdeY));
                 if (piezaEnElMedio != null) throw new appException("Hay una pieza en el medio.");
             }
