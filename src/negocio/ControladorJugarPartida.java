@@ -45,7 +45,6 @@ public class ControladorJugarPartida {
         Partida partida = getPartidaPendiente();
         if (partida == null){
             partidaActual = new Partida(jugadorBlancoActual, jugadorNegroActual);
-
             jugadorBlancoActual.addPartida(partidaActual);
         }
         else{
