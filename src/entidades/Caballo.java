@@ -8,17 +8,26 @@ import appExceptions.appException;
 
 public final class Caballo extends Pieza{
 
+    private static final String NOMBRE = "C";
+
+    public String getNombre() {
+        return NOMBRE;
+    }
+
     private Caballo(){}
 
-    public Caballo(String color, Partida partida){
+    public Caballo(String color, Partida partida, Posicion posicion){
         setColor(color);
-        setNombre('C');
         setPartida(partida);
+        setPosicion(posicion);
     }
 
     @Override
-    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
-        super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
+    public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
+        super.esMovimientoValido(hastaX, hastaY);
+
+        char desdeX = this.getPosicion().getX();
+        int desdeY = this.getPosicion().getY();
 
         if (Math.abs(desdeX - hastaX) == 1 && Math.abs(desdeY - hastaY) == 2) return true;
 

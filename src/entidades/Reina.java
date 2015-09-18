@@ -8,17 +8,26 @@ import appExceptions.appException;
 
 public final class Reina extends Pieza{
 
+    private static final String NOMBRE = "D";
+
+    public String getNombre() {
+        return NOMBRE;
+    }
+
     private Reina(){}
 
-    public Reina(String color, Partida partida){
+    public Reina(String color, Partida partida, Posicion posicion){
         setColor(color);
-        setNombre('Q');
         setPartida(partida);
+        setPosicion(posicion);
     }
 
     @Override
-    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
-        super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
+    public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
+        super.esMovimientoValido(hastaX, hastaY);
+
+        char desdeX = this.getPosicion().getX();
+        int desdeY = this.getPosicion().getY();
 
         // desplazamiento vertical u horizontal como la torre
         if( desdeX == hastaX ) {

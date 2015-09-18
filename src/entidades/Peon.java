@@ -7,20 +7,30 @@ package entidades;
 import appExceptions.appException;
 
 public final class Peon extends Pieza{
+    private static final String NOMBRE = "P";
+
+    public String getNombre() {
+        return NOMBRE;
+    }
+
 
     private Peon(){}
 
-    public Peon(String color, Partida partida){
+    public Peon(String color, Partida partida, Posicion posicion){
         setColor(color);
-        setNombre('P');
         setPartida(partida);
+        setPosicion(posicion);
     }
 
     @Override
-    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
+    public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
         // verificar que por lo menos no se nos caiga del tablero y si la posición destino
         // está ocupada que sea una pieza contraria
-        super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
+        super.esMovimientoValido(hastaX, hastaY);
+
+        char desdeX = this.getPosicion().getX();
+        int desdeY = this.getPosicion().getY();
+
 
         // hacia adelante de a dos si no se movió la pieza
         // si se movió, de a uno hacia adelante

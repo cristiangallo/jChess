@@ -7,19 +7,26 @@ package entidades;
 import appExceptions.appException;
 
 public final class Alfil extends Pieza{
+    private static final String NOMBRE = "A";
+
+    public String getNombre() {
+        return NOMBRE;
+    }
 
     private Alfil(){}
 
-    public Alfil(String color, Partida partida){
+    public Alfil(String color, Partida partida, Posicion posicion){
         setColor(color);
-        setNombre('A');
         setPartida(partida);
+        setPosicion(posicion);
     }
 
     @Override
-    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
-        super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
+    public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
+        super.esMovimientoValido(hastaX, hastaY);
 
+        char desdeX = this.getPosicion().getX();
+        int desdeY = this.getPosicion().getY();
         // los desplazamientos en x e y deben ser idénticos
         if (Math.abs(hastaX - desdeX) == Math.abs(hastaY - desdeY)) {
             int y = desdeY;

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import negocio.ControladorJugarPartida;
 import entidades.*;
+import appExceptions.appException;
 
 public class FormMasterChess extends JFrame{
     private JButton buttonBuscarJugadorBlancas;
@@ -130,11 +131,10 @@ public class FormMasterChess extends JFrame{
         buttonJugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-            controladorJugarPartida.iniciarPartida();
             try {
                 controladorJugarPartida.iniciarPartida();
                 lblInfo.setText("Turno: BLANCAS");
-            } catch (NullPointerException e){
+            } catch (appException e){
                 JOptionPane.showMessageDialog(FormMasterChess.this, e.getMessage());
             }
             }
@@ -152,25 +152,16 @@ public class FormMasterChess extends JFrame{
                 int hastaY = Character.getNumericValue(hastaArray[1]);
                 try {
                     Pieza pieza = controladorJugarPartida.moverPieza(desdeX, desdeY, hastaX, hastaY);
-                    textPieza.setText(String.valueOf(pieza.getNombre()));
+                    textPieza.setText(pieza.getNombre());
                     lblInfo.setText("Turno: " + controladorJugarPartida.getTurno());
-                } catch (NullPointerException e){
-                    JOptionPane.showMessageDialog(FormMasterChess.this, e.getMessage());
-                } catch (Exception e){
-                    JOptionPane.showMessageDialog(FormMasterChess.this, e.getMessage());
-                }
-                /*
-                try {
-                    controladorJugarPartida.iniciarPartida();
-                    lblInfo.setText("Turno: BLANCAS");
-                } catch (NullPointerException e){
+                //} catch (NullPointerException e){
+                //    JOptionPane.showMessageDialog(FormMasterChess.this, e.getMessage());
+                } catch (appException e){
                     JOptionPane.showMessageDialog(FormMasterChess.this, e.getMessage());
                 }
-                */
             }
-        }
+                                      }
         );
-
-        setVisible(true);
+            setVisible(true);
         }
     }

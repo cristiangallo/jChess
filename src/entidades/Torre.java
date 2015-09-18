@@ -8,20 +8,28 @@ import appExceptions.appException;
 
 public final class Torre extends Pieza{
 
+    private static final String NOMBRE = "T";
+
+    public String getNombre() {
+        return NOMBRE;
+    }
+
     private Torre(){}
 
-    public Torre(String color, Partida partida){
+    public Torre(String color, Partida partida, Posicion posicion){
         setColor(color);
-        setNombre('T');
         setPartida(partida);
+        setPosicion(posicion);
     }
 
     @Override
-    public boolean esMovimientoValido(char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
+    public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
 
-        super.esMovimientoValido(desdeX, desdeY, hastaX, hastaY);
+        super.esMovimientoValido(hastaX, hastaY);
 
         //desplazamiento vertical
+        char desdeX = this.getPosicion().getX();
+        int desdeY = this.getPosicion().getY();
         if( desdeX == hastaX ) {
             for (int y = desdeY + 1; y < hastaY; y++){
                 Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(desdeX, y));

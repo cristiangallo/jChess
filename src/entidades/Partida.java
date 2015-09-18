@@ -1,13 +1,12 @@
 package entidades;
 
-/**
- * Created by cgallo on 31/07/15.
- */
-
 import java.util.HashMap;
 import java.util.Objects;
 import appExceptions.appException;
 
+/**
+ * Created by cgallo on 31/07/15.
+ */
 
 public class Partida {
 
@@ -54,61 +53,70 @@ public class Partida {
     }
 
     private Partida() {}
-/*
-    public Partida(int id, Jugador blanco, Jugador negro) {
+
+    public Partida(int id, Jugador jugadorBlanco, Jugador jugadorNegro, String turno, HashMap<Posicion, Pieza> tablero) {
         this.id = id;
-        this.jugadorBlanco = blanco;
-        this.jugadorNegro = negro;
+        this.jugadorBlanco = jugadorBlanco;
+        this.jugadorNegro = jugadorNegro;
+        this.turno = turno;
+        this.tablero.putAll(tablero);
     }
-*/
+
     public Partida(Jugador jugadorBlanco, Jugador jugadorNegro) {
         this.jugadorBlanco = jugadorBlanco;
         this.jugadorNegro = jugadorNegro;
-        //this.turno = jugadorBlanco;
+
         // inicializar el tablero
-        tablero.put(new Posicion('a', 1), new Torre("blanco", this));
-        tablero.put(new Posicion('b', 1), new Caballo("blanco", this));
-        tablero.put(new Posicion('c', 1), new Alfil("blanco", this));
-        tablero.put(new Posicion('d', 1), new Rey("blanco", this));
-        tablero.put(new Posicion('e', 1), new Reina("blanco", this));
-        tablero.put(new Posicion('f', 1), new Alfil("blanco", this));
-        tablero.put(new Posicion('g', 1), new Caballo("blanco", this));
-        tablero.put(new Posicion('h', 1), new Torre("blanco", this));
-        tablero.put(new Posicion('a', 8), new Torre("negro", this));
-        tablero.put(new Posicion('b', 8), new Caballo("negro", this));
-        tablero.put(new Posicion('c', 8), new Alfil("negro", this));
-        tablero.put(new Posicion('d', 8), new Rey("negro", this));
-        tablero.put(new Posicion('e', 8), new Reina("negro", this));
-        tablero.put(new Posicion('f', 8), new Alfil("negro", this));
-        tablero.put(new Posicion('g', 8), new Caballo("negro", this));
-        tablero.put(new Posicion('h', 8), new Torre("negro", this));
+        Posicion posicion = new Posicion('a', 1);
+        tablero.put(posicion, new Torre("blanco", this, posicion));
+        posicion = new Posicion('b', 1);
+        tablero.put(posicion, new Caballo("blanco", this, posicion));
+        posicion = new Posicion('c', 1);
+        tablero.put(posicion, new Alfil("blanco", this, posicion));
+        posicion = new Posicion('d', 1);
+        tablero.put(posicion, new Rey("blanco", this, posicion));
+        posicion = new Posicion('e', 1);
+        tablero.put(posicion, new Reina("blanco", this, posicion));
+        posicion = new Posicion('f', 1);
+        tablero.put(posicion, new Alfil("blanco", this, posicion));
+        posicion = new Posicion('g', 1);
+        tablero.put(posicion, new Caballo("blanco", this, posicion));
+        posicion = new Posicion('h', 1);
+        tablero.put(posicion, new Torre("blanco", this, posicion));
+        posicion = new Posicion('a', 8);
+        tablero.put(posicion, new Torre("negro", this, posicion));
+        posicion = new Posicion('b', 8);
+        tablero.put(posicion, new Caballo("negro", this, posicion));
+        posicion = new Posicion('c', 8);
+        tablero.put(posicion, new Alfil("negro", this, posicion));
+        posicion = new Posicion('d', 8);
+        tablero.put(posicion, new Rey("negro", this, posicion));
+        posicion = new Posicion('e', 8);
+        tablero.put(posicion, new Reina("negro", this, posicion));
+        posicion = new Posicion('f', 8);
+        tablero.put(posicion, new Alfil("negro", this, posicion));
+        posicion = new Posicion('g', 8);
+        tablero.put(posicion, new Caballo("negro", this, posicion));
+        posicion = new Posicion('h', 8);
+        tablero.put(posicion, new Torre("negro", this, posicion));
         for (char x = 'a'; x <='h'; x++){
-            tablero.put(new Posicion(x, 2), new Peon("blanco", this));
-            tablero.put(new Posicion(x, 7), new Peon("negro", this));
+            posicion = new Posicion(x, 2);
+            tablero.put(posicion, new Peon("blanco", this, posicion));
+            posicion = new Posicion(x, 7);
+            tablero.put(posicion, new Peon("negro", this, posicion));
         }
-
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setTablero(HashMap<Posicion, Pieza> tablero) {
-        this.tablero = tablero;
-    }
-
     public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
         Pieza pieza = tablero.get(new Posicion(desdeX, desdeY));
         try {
             //si el movimiento es válido muevo la pieza
-            if (pieza.esMovimientoValido(desdeX, desdeY, hastaX, hastaY)){
-                tablero.put(new Posicion(hastaX, hastaY), pieza);
-                tablero.remove(new Posicion(desdeX, desdeY));
-                pieza.setFueMovida();
+            if (pieza.esMovimientoValido(hastaX, hastaY)){
+                pieza.moverPieza(hastaX, hastaY);
                 cambiarTurno();
             }
         } catch (NullPointerException e){
