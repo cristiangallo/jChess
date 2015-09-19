@@ -22,9 +22,11 @@ public abstract class Pieza {
     public void setFueMovida(boolean fueMovida) {
         this.fueMovida = fueMovida;
     }
+
     public boolean isFueMovida() {
         return fueMovida;
     }
+
     private boolean fueMovida;
 
     private String color;

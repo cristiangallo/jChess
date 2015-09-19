@@ -12,6 +12,8 @@ import dataDB.DBPartida;
 
 public class Partida {
 
+    public int getId() { return id; }
+
     private int id;
 
     public Jugador getJugadorBlanco() {
@@ -48,6 +50,10 @@ public class Partida {
 
     private Jugador jugadorNegro = null;
 
+    public void setTablero(HashMap<Posicion, Pieza> tablero) {
+        this.tablero = tablero;
+    }
+
     private HashMap<Posicion, Pieza> tablero = new HashMap<>();
 
     public HashMap<Posicion, Pieza> getTablero() {
@@ -57,12 +63,11 @@ public class Partida {
     private Partida() {}
 
     // constructor para partida guardada
-    public Partida(int id, Jugador jugadorBlanco, Jugador jugadorNegro, String turno, HashMap<Posicion, Pieza> tablero) {
+    public Partida(int id, Jugador jugadorBlanco, Jugador jugadorNegro, String turno) {
         this.id = id;
         this.jugadorBlanco = jugadorBlanco;
         this.jugadorNegro = jugadorNegro;
         this.turno = turno;
-        this.tablero.putAll(tablero);
     }
 
     public Partida(Jugador jugadorBlanco, Jugador jugadorNegro) {
@@ -71,42 +76,42 @@ public class Partida {
 
         // inicializar el tablero
         Posicion posicion = new Posicion('a', 1);
-        tablero.put(posicion, new Torre("blanco", this, posicion));
+        tablero.put(posicion, new Torre(false, "blanco", this, posicion));
         posicion = new Posicion('b', 1);
-        tablero.put(posicion, new Caballo("blanco", this, posicion));
+        tablero.put(posicion, new Caballo(false, "blanco", this, posicion));
         posicion = new Posicion('c', 1);
-        tablero.put(posicion, new Alfil("blanco", this, posicion));
+        tablero.put(posicion, new Alfil(false, "blanco", this, posicion));
         posicion = new Posicion('d', 1);
-        tablero.put(posicion, new Rey("blanco", this, posicion));
+        tablero.put(posicion, new Rey(false, "blanco", this, posicion));
         posicion = new Posicion('e', 1);
-        tablero.put(posicion, new Reina("blanco", this, posicion));
+        tablero.put(posicion, new Reina(false, "blanco", this, posicion));
         posicion = new Posicion('f', 1);
-        tablero.put(posicion, new Alfil("blanco", this, posicion));
+        tablero.put(posicion, new Alfil(false, "blanco", this, posicion));
         posicion = new Posicion('g', 1);
-        tablero.put(posicion, new Caballo("blanco", this, posicion));
+        tablero.put(posicion, new Caballo(false, "blanco", this, posicion));
         posicion = new Posicion('h', 1);
-        tablero.put(posicion, new Torre("blanco", this, posicion));
+        tablero.put(posicion, new Torre(false, "blanco", this, posicion));
         posicion = new Posicion('a', 8);
-        tablero.put(posicion, new Torre("negro", this, posicion));
+        tablero.put(posicion, new Torre(false, "negro", this, posicion));
         posicion = new Posicion('b', 8);
-        tablero.put(posicion, new Caballo("negro", this, posicion));
+        tablero.put(posicion, new Caballo(false, "negro", this, posicion));
         posicion = new Posicion('c', 8);
-        tablero.put(posicion, new Alfil("negro", this, posicion));
+        tablero.put(posicion, new Alfil(false, "negro", this, posicion));
         posicion = new Posicion('d', 8);
-        tablero.put(posicion, new Rey("negro", this, posicion));
+        tablero.put(posicion, new Rey(false, "negro", this, posicion));
         posicion = new Posicion('e', 8);
-        tablero.put(posicion, new Reina("negro", this, posicion));
+        tablero.put(posicion, new Reina(false, "negro", this, posicion));
         posicion = new Posicion('f', 8);
-        tablero.put(posicion, new Alfil("negro", this, posicion));
+        tablero.put(posicion, new Alfil(false, "negro", this, posicion));
         posicion = new Posicion('g', 8);
-        tablero.put(posicion, new Caballo("negro", this, posicion));
+        tablero.put(posicion, new Caballo(false, "negro", this, posicion));
         posicion = new Posicion('h', 8);
-        tablero.put(posicion, new Torre("negro", this, posicion));
+        tablero.put(posicion, new Torre(false, "negro", this, posicion));
         for (char x = 'a'; x <='h'; x++){
             posicion = new Posicion(x, 2);
-            tablero.put(posicion, new Peon("blanco", this, posicion));
+            tablero.put(posicion, new Peon(false, "blanco", this, posicion));
             posicion = new Posicion(x, 7);
-            tablero.put(posicion, new Peon("negro", this, posicion));
+            tablero.put(posicion, new Peon(false, "negro", this, posicion));
         }
         DBPartida.save(this);
     }

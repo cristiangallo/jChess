@@ -132,11 +132,20 @@ public class FormMasterChess extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
             try {
-                controladorJugarPartida.iniciarPartida();
-                lblInfo.setText("Turno: BLANCAS");
+                if (controladorJugarPartida.hayPartidaPendiente()!=null){
+                    int dialogResult = JOptionPane.showConfirmDialog(FormMasterChess.this,
+                            "Hay una partida pendiente, ¿desean continuarla?",
+                            "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (dialogResult == JOptionPane.NO_OPTION) {
+                        controladorJugarPartida.iniciarPartida();
+                    }
+                } else {
+                    controladorJugarPartida.iniciarPartida();
+                }
             } catch (appException e){
                 JOptionPane.showMessageDialog(FormMasterChess.this, e.getMessage());
             }
+            lblInfo.setText("Turno: " + controladorJugarPartida.getTurno());
             }
         }
         );

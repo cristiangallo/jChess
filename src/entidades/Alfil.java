@@ -15,10 +15,11 @@ public final class Alfil extends Pieza{
 
     private Alfil(){}
 
-    public Alfil(String color, Partida partida, Posicion posicion){
+    public Alfil(boolean fueMovida, String color, Partida partida, Posicion posicion){
         setColor(color);
         setPartida(partida);
         setPosicion(posicion);
+        setFueMovida(fueMovida);
     }
 
     public boolean isGameOver(){ return false; }

@@ -9,22 +9,17 @@ import appExceptions.appException;
 public final class Rey extends Pieza{
     private static final String NOMBRE = "R";
 
-    public static boolean isGAMEOVER() {
-        return GAMEOVER;
-    }
-
-    private static final boolean GAMEOVER = true;
-
     public String getNombre() {
         return NOMBRE;
     }
 
     private Rey(){}
 
-    public Rey(String color, Partida partida, Posicion posicion){
+    public Rey(boolean fueMovida, String color, Partida partida, Posicion posicion){
         setColor(color);
         setPartida(partida);
         setPosicion(posicion);
+        setFueMovida(fueMovida);
     }
 
     public boolean isGameOver(){ return true; }

@@ -16,10 +16,11 @@ public final class Torre extends Pieza{
 
     private Torre(){}
 
-    public Torre(String color, Partida partida, Posicion posicion){
+    public Torre(boolean fueMovida, String color, Partida partida, Posicion posicion){
         setColor(color);
         setPartida(partida);
         setPosicion(posicion);
+        setFueMovida(fueMovida);
     }
 
     public boolean isGameOver(){ return false; }

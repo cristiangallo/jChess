@@ -31,29 +31,16 @@ public class ControladorJugarPartida {
         return this.jugadorNegroActual;
     }
 
-    private Partida getPartidaPendiente(){
-        // ir a buscar a la base las partidas pendientes
-        Partida partidaPendiente = null;
-        /*
-        ArrayList<Partida> partidasPendientes = jugadorBlancoActual.getPartidasPendientes(jugadorNegroActual);
-        if (!(partidasPendientes.isEmpty())){
-            partidaPendiente = partidasPendientes.get(0);
-        }
-        */
-        return partidaPendiente;
+    public Partida hayPartidaPendiente(){
+        partidaActual = DBPartida.getPartidaPendiente(jugadorBlancoActual, jugadorNegroActual);
+        return partidaActual;
     }
 
     public Partida iniciarPartida() throws appException {
         if (jugadorBlancoActual == null) throw new appException("No se definió jugador blanco.");
-        if (jugadorNegroActual == null) throw new appException("No se definió jugador negro");
-        Partida partida = getPartidaPendiente();
-        if (partida == null){
-            partidaActual = new Partida(jugadorBlancoActual, jugadorNegroActual);
-            DBPartida.save(partidaActual);
-        }
-        else{
-            partidaActual = partida;
-        }
+        if (jugadorNegroActual == null) throw new appException("No se definió jugador negro.");
+        partidaActual = new Partida(jugadorBlancoActual, jugadorNegroActual);
+        DBPartida.save(partidaActual);
         return partidaActual;
     }
 

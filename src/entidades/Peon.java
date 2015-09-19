@@ -16,10 +16,11 @@ public final class Peon extends Pieza{
 
     private Peon(){}
 
-    public Peon(String color, Partida partida, Posicion posicion){
+    public Peon(boolean fueMovida, String color, Partida partida, Posicion posicion){
         setColor(color);
         setPartida(partida);
         setPosicion(posicion);
+        setFueMovida(fueMovida);
     }
 
     public boolean isGameOver(){ return false; }

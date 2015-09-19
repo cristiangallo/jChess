@@ -5,6 +5,7 @@ package dataDB;
  */
 
 import conexionDB.ConexionDB;
+import entidades.Jugador;
 import entidades.Partida;
 import entidades.Pieza;
 import entidades.Posicion;
@@ -16,6 +17,38 @@ import java.util.HashMap;
 
 
 public class DBPartida {
+
+    public static Partida getPartidaPendiente(Jugador jugadorBlanco, Jugador jugadorNegro){
+        Partida partidaPendiente = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = ConexionDB.getInstancia().getConexion().prepareStatement(
+                    "select id, jugador_blanco_id, jugador_negro_id, turno from partidas where jugador_blanco_id = ? " +
+                            "and jugador_negro_id = ?"
+            );
+            stmt.setInt(1, jugadorBlanco.getDni());
+            stmt.setInt(2, jugadorNegro.getDni());
+            stmt.execute();
+            if(rs != null && rs.next()){
+                int partida_id = rs.getInt("id");
+                partidaPendiente = new Partida(partida_id, jugadorBlanco, jugadorNegro, rs.getString("turno"));
+                partidaPendiente.setTablero(DBPieza.getTablero(partidaPendiente));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.cancel();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            ConexionDB.getInstancia().releaseConexion();
+        }
+        return partidaPendiente;
+    }
+
     public static void save(Partida partida) {
         PreparedStatement stmt = null;
         ResultSet rs = null;

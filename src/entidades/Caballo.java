@@ -16,10 +16,11 @@ public final class Caballo extends Pieza{
 
     private Caballo(){}
 
-    public Caballo(String color, Partida partida, Posicion posicion){
+    public Caballo(boolean fueMovida, String color, Partida partida, Posicion posicion){
         setColor(color);
         setPartida(partida);
         setPosicion(posicion);
+        setFueMovida(fueMovida);
     }
 
     public boolean isGameOver(){ return false; }

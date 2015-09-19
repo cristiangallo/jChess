@@ -16,10 +16,11 @@ public final class Reina extends Pieza{
 
     private Reina(){}
 
-    public Reina(String color, Partida partida, Posicion posicion){
+    public Reina(boolean fueMovida, String color, Partida partida, Posicion posicion){
         setColor(color);
         setPartida(partida);
         setPosicion(posicion);
+        setFueMovida(fueMovida);
     }
 
     public boolean isGameOver(){ return false; }
