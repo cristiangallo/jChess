@@ -45,8 +45,11 @@ public final class Peon extends Pieza{
         if (getColor().equals("blanco")){
             // avanza vertical de a 1
             if (desdeX == hastaX && hastaY - desdeY == 1 && piezaEnDestino == null) return true;
+            if (desdeX == hastaX && hastaY - desdeY == 1 && piezaEnDestino != null)
+                throw new appException("Topa con otra pieza.");
+
             // avanza vertical de a 2, debo verificar que no haya piezas en las dos posiciones intermedias
-            Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(hastaX, 3));
+            Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(hastaX, hastaY));
             if (!isFueMovida() && desdeX == hastaX && hastaY - desdeY == 2
                     && piezaEnElMedio == null && piezaEnDestino == null) return true;
 
@@ -54,7 +57,7 @@ public final class Peon extends Pieza{
             if ( Math.abs(hastaX - desdeX) == 1 && hastaY - desdeY == 1 && piezaEnDestino != null ) return true;
         } else {
             if (desdeX == hastaX && desdeY - hastaY == 1 && piezaEnDestino == null) return true;
-            Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(hastaX, 6));
+            Pieza piezaEnElMedio = getPartida().getTablero().get(new Posicion(hastaX, hastaY));
             if (!isFueMovida() && desdeX == hastaX && desdeY - hastaY == 2
                     && piezaEnElMedio == null && piezaEnDestino == null) return true;
             if ( Math.abs(hastaX - desdeX) == 1 && desdeY - hastaY == 1 && piezaEnDestino != null ) return true;

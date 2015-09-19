@@ -132,7 +132,8 @@ public class FormMasterChess extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
             try {
-                if (controladorJugarPartida.hayPartidaPendiente()!=null){
+                Partida p = controladorJugarPartida.hayPartidaPendiente();
+                if (p!=null){
                     int dialogResult = JOptionPane.showConfirmDialog(FormMasterChess.this,
                             "Hay una partida pendiente, ¿desean continuarla?",
                             "Advertencia", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);

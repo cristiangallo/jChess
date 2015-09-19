@@ -29,7 +29,7 @@ public class DBPartida {
             );
             stmt.setInt(1, jugadorBlanco.getDni());
             stmt.setInt(2, jugadorNegro.getDni());
-            stmt.execute();
+            rs = stmt.executeQuery();
             if(rs != null && rs.next()){
                 int partida_id = rs.getInt("id");
                 partidaPendiente = new Partida(partida_id, jugadorBlanco, jugadorNegro, rs.getString("turno"));
@@ -63,23 +63,8 @@ public class DBPartida {
             stmt.execute();
             rs = stmt.getGeneratedKeys();
             if(rs != null && rs.next()){
-                int partida_id = rs.getInt(1);
-                partida.setId(partida_id);
-                stmt = ConexionDB.getInstancia().getConexion().prepareStatement(
-                        "insert into piezas(fueMovida, gameOver, color, nombre, partida_id, posicionX, posicionY) " +
-                                "values (?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS
-                );
-                HashMap<Posicion, Pieza> tablero = partida.getTablero();
-                for (Pieza pieza: tablero.values()) {
-                    stmt.setBoolean(1, pieza.isFueMovida());
-                    stmt.setBoolean(2, pieza.isGameOver());
-                    stmt.setString(3, pieza.getColor());
-                    stmt.setString(4, pieza.getNombre());
-                    stmt.setInt(5, partida_id);
-                    stmt.setString(6, String.valueOf(pieza.getPosicion().getX()));
-                    stmt.setInt(7, pieza.getPosicion().getY());
-                    stmt.execute();
-                }
+                partida.setId(rs.getInt(1));
+                DBPieza.saveTablero(partida);
             }
         } catch (SQLException e) {
             e.printStackTrace();

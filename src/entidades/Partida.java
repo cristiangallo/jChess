@@ -3,7 +3,6 @@ package entidades;
 import java.util.HashMap;
 import java.util.Objects;
 import appExceptions.appException;
-import dataDB.DBPartida;
 
 
 /**
@@ -113,7 +112,6 @@ public class Partida {
             posicion = new Posicion(x, 7);
             tablero.put(posicion, new Peon(false, "negro", this, posicion));
         }
-        DBPartida.save(this);
     }
 
     public void setId(int id) {

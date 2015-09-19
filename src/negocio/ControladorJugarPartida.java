@@ -31,7 +31,9 @@ public class ControladorJugarPartida {
         return this.jugadorNegroActual;
     }
 
-    public Partida hayPartidaPendiente(){
+    public Partida hayPartidaPendiente() throws appException {
+        if (jugadorBlancoActual == null) throw new appException("No se definió jugador blanco.");
+        if (jugadorNegroActual == null) throw new appException("No se definió jugador negro.");
         partidaActual = DBPartida.getPartidaPendiente(jugadorBlancoActual, jugadorNegroActual);
         return partidaActual;
     }
@@ -52,6 +54,7 @@ public class ControladorJugarPartida {
 
     public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
         Pieza pieza = partidaActual.moverPieza(desdeX, desdeY, hastaX, hastaY);
+        DBPieza.updateTablero(partidaActual);
         return pieza;
     }
 
