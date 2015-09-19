@@ -14,11 +14,7 @@ public class Jugador {
         return partidasPendientes;
     }
 
-    public void setPartidasPendientes(ArrayList<Partida> partidasPendientes) {
-        this.partidasPendientes = partidasPendientes;
-    }
-
-    private ArrayList<Partida> partidasPendientes;
+    private ArrayList<Partida> partidasPendientes = null;
 
     public Jugador(){}
 
@@ -65,7 +61,6 @@ public class Jugador {
     }
 
     public void addPartida(Partida partida){
-
         partidasPendientes.add(partida);
     }
 }

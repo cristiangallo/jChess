@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Created by cgallo on 04/08/15.
  */
 public class ControladorJugarPartida {
+
     private CatalogoJugadores catalogoJugadores = CatalogoJugadores.getInstance();
 
     private Jugador jugadorBlancoActual;
@@ -31,11 +32,14 @@ public class ControladorJugarPartida {
     }
 
     private Partida getPartidaPendiente(){
+        // ir a buscar a la base las partidas pendientes
         Partida partidaPendiente = null;
+        /*
         ArrayList<Partida> partidasPendientes = jugadorBlancoActual.getPartidasPendientes(jugadorNegroActual);
         if (!(partidasPendientes.isEmpty())){
             partidaPendiente = partidasPendientes.get(0);
         }
+        */
         return partidaPendiente;
     }
 
@@ -45,8 +49,7 @@ public class ControladorJugarPartida {
         Partida partida = getPartidaPendiente();
         if (partida == null){
             partidaActual = new Partida(jugadorBlancoActual, jugadorNegroActual);
-
-            jugadorBlancoActual.addPartida(partidaActual);
+            DBPartida.save(partidaActual);
         }
         else{
             partidaActual = partida;

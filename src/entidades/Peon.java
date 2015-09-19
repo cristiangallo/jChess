@@ -22,6 +22,8 @@ public final class Peon extends Pieza{
         setPosicion(posicion);
     }
 
+    public boolean isGameOver(){ return false; }
+
     @Override
     public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
         // verificar que por lo menos no se nos caiga del tablero y si la posición destino

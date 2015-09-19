@@ -22,6 +22,8 @@ public final class Torre extends Pieza{
         setPosicion(posicion);
     }
 
+    public boolean isGameOver(){ return false; }
+
     @Override
     public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
 

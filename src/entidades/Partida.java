@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import appExceptions.appException;
 
+
 /**
  * Created by cgallo on 31/07/15.
  */
@@ -54,6 +55,7 @@ public class Partida {
 
     private Partida() {}
 
+    // constructor para partida guardada
     public Partida(int id, Jugador jugadorBlanco, Jugador jugadorNegro, String turno, HashMap<Posicion, Pieza> tablero) {
         this.id = id;
         this.jugadorBlanco = jugadorBlanco;

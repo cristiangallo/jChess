@@ -31,7 +31,7 @@ public abstract class Pieza {
 
     public abstract String getNombre();
 
-    protected boolean gameOver = false;
+    public abstract boolean isGameOver();
 
     private Partida partida;
 

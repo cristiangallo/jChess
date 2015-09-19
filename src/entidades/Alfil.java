@@ -21,6 +21,8 @@ public final class Alfil extends Pieza{
         setPosicion(posicion);
     }
 
+    public boolean isGameOver(){ return false; }
+
     @Override
     public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{
         super.esMovimientoValido(hastaX, hastaY);
