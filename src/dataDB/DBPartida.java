@@ -78,4 +78,25 @@ public class DBPartida {
             ConexionDB.getInstancia().releaseConexion();
         }
     }
+
+    public static void delete(Partida partida) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = ConexionDB.getInstancia().getConexion().prepareStatement(
+                    "delete from partidas where id = ?;");
+            stmt.setInt(1, partida.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.cancel();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            ConexionDB.getInstancia().releaseConexion();
+        }
+    }
 }

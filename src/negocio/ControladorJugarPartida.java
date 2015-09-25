@@ -1,8 +1,9 @@
 package negocio;
 
+import appExceptions.appGameOver;
 import dataDB.*;
 import entidades.*;
-import appExceptions.appException;
+import appExceptions.*;
 import java.util.ArrayList;
 
 /**
@@ -52,9 +53,18 @@ public class ControladorJugarPartida {
         }
     }
 
-    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
-        Pieza pieza = partidaActual.moverPieza(desdeX, desdeY, hastaX, hastaY);
-        DBPieza.updateTablero(partidaActual);
+    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException, appGameOver{
+        Pieza pieza = null;
+        try {
+            pieza = partidaActual.moverPieza(desdeX, desdeY, hastaX, hastaY);
+            DBPieza.updateTablero(partidaActual);
+        } catch (appGameOver e) {
+
+            DBPartida.delete(partidaActual);
+            throw new appGameOver("Jaque mate");
+
+        }
+
         return pieza;
     }
 

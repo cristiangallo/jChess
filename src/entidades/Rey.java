@@ -4,7 +4,7 @@ package entidades;
  * Created by cgallo on 31/07/15.
  */
 
-import appExceptions.appException;
+import appExceptions.*;
 
 public final class Rey extends Pieza{
     private static final String NOMBRE = "R";
@@ -22,7 +22,7 @@ public final class Rey extends Pieza{
         setFueMovida(fueMovida);
     }
 
-    public boolean isGameOver(){ return true; }
+    public boolean isGameOver() throws appGameOver { throw new appGameOver("Jaque mate"); }
 
     @Override
     public boolean esMovimientoValido(char hastaX, int hastaY) throws appException{

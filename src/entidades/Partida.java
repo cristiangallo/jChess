@@ -3,6 +3,7 @@ package entidades;
 import java.util.HashMap;
 import java.util.Objects;
 import appExceptions.appException;
+import appExceptions.appGameOver;
 
 
 /**
@@ -118,11 +119,17 @@ public class Partida {
         this.id = id;
     }
 
-    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException{
+    public Pieza moverPieza (char desdeX, int desdeY, char hastaX, int hastaY) throws appException, appGameOver {
         Pieza pieza = tablero.get(new Posicion(desdeX, desdeY));
         try {
             //si el movimiento es válido muevo la pieza
             if (pieza.esMovimientoValido(hastaX, hastaY)){
+                try{
+                    Pieza piezaDestino = tablero.get(new Posicion(hastaX, hastaY));
+                    piezaDestino.isGameOver();
+                } catch (NullPointerException e){
+                    // no hay nadie allí mové tranquilo
+                }
                 pieza.moverPieza(hastaX, hastaY);
                 cambiarTurno();
             }

@@ -5,7 +5,7 @@ package entidades;
  */
 
 import java.util.Objects;
-import appExceptions.appException;
+import appExceptions.*;
 
 public abstract class Pieza {
 
@@ -33,13 +33,11 @@ public abstract class Pieza {
 
     public abstract String getNombre();
 
-    public abstract boolean isGameOver();
+    public abstract boolean isGameOver() throws appGameOver;
 
     private Partida partida;
 
-    public void setFueMovida() {
-        this.fueMovida = true;
-    }
+    // public void setFueMovida() { this.fueMovida = true; }
 
     public Partida getPartida() {
         return partida;
