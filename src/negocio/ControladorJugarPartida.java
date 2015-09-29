@@ -13,6 +13,14 @@ public class ControladorJugarPartida {
 
     private CatalogoJugadores catalogoJugadores = CatalogoJugadores.getInstance();
 
+    public Jugador getJugadorBlancoActual() {
+        return jugadorBlancoActual;
+    }
+
+    public Jugador getJugadorNegroActual() {
+        return jugadorNegroActual;
+    }
+
     private Jugador jugadorBlancoActual;
     private Jugador jugadorNegroActual;
     private Partida partidaActual;
@@ -59,10 +67,8 @@ public class ControladorJugarPartida {
             pieza = partidaActual.moverPieza(desdeX, desdeY, hastaX, hastaY);
             DBPieza.updateTablero(partidaActual);
         } catch (appGameOver e) {
-
             DBPartida.delete(partidaActual);
             throw new appGameOver("Jaque mate");
-
         }
 
         return pieza;
