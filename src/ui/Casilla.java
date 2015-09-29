@@ -50,7 +50,7 @@ public class Casilla extends JLabel{
 				if(c.getPieza() != "") {
 					System.out.println("ORIGEN: "+c.getCoordenada());
 					habilitarTransferHandler();
-					// Esto es un derroche de imperfecciÛn. hago un hashmap de los iconos que hay en las casillas ANTES de soltar la pieza 
+					// Esto es un derroche de imperfecci√≥n. hago un hashmap de los iconos que hay en las casillas ANTES de soltar la pieza 
 					for (Map.Entry<String, Casilla> entry : JAjedrez.tablero.entrySet()) {
 						 String key = entry.getKey();
 						 Icon icon = entry.getValue().getIcon();
@@ -59,7 +59,7 @@ public class Casilla extends JLabel{
 					
 					
 				    c.setTransferHandler(new TransferHandler("icon") {
-						// ESTE QUEDA ASÕ PARA QUE ME TOME LA ACCI”N "MOVE" QUE POR AGL⁄N MOTIVO LA SACARON
+						// ESTE QUEDA AS√ç PARA QUE ME TOME LA ACCI√ìN "MOVE" QUE POR AGL√öN MOTIVO LA SACARON
 				    	@Override
 						public int getSourceActions(JComponent c) {
 							return COPY | MOVE;
@@ -74,7 +74,7 @@ public class Casilla extends JLabel{
 				    		// Coordenadas del puntero al momento de soltar la pieza
 							Point p = MouseInfo.getPointerInfo().getLocation();
 							
-							// Averiguo dÛnde fue a parar la pieza
+							// Averiguo d√≥nde fue a parar la pieza
 							String[] casillas = {"A1", "C1", "E1", "G1", "B2", "D2", "F2", "H2", "A3", "C3", "E3", "G3", "B4", "D4", "F4", "H4", "A5", "C5", "E5", "G5", "B6", "D6", "F6", "H6", "A7", "C7", "E7", "G7", "B8", "D8", "F8", "H8", 
 									 			 "B1", "D1", "F1", "H1", "A2", "C2", "E2", "G2", "B3", "D3", "F3", "H3", "A4", "C4", "E4", "G4", "B5", "D5", "F5", "H5", "A6", "C6", "E6", "G6", "B7", "D7", "F7", "H7", "A8", "C8", "E8", "G8"};
 							
@@ -87,13 +87,13 @@ public class Casilla extends JLabel{
 							
 							if(action == MOVE) {
 								
-								//  Si el origen y destino es el mismo (Si el puntero est· dentro de la Casilla de origen)
+								//  Si el origen y destino es el mismo (Si el puntero est√° dentro de la Casilla de origen)
 								if(c.getCoordenada().equals(casillaDestino)) {
-									System.out.println("LA PIEZA SE SOLT” EN LA MISMA CASILLA");
+									System.out.println("LA PIEZA SE SOLT√ì EN LA MISMA CASILLA");
 								}else {
-									System.out.println("LA PIEZA SE SOLT” EN LA CASILLA: " + casillaDestino);
+									System.out.println("LA PIEZA SE SOLT√ì EN LA CASILLA: " + casillaDestino);
 									deshabilitarTransferHandler();
-									// si el movimiento es v·lido
+									// si el movimiento es v√°lido
 									
 									//moverPieza (desdeX:char, desdeY:int, hastaX:char, hastaY:int):Pieza
 									try{
@@ -115,12 +115,12 @@ public class Casilla extends JLabel{
 							    		c.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 										
 									} catch (appException e){
+							            JOptionPane.showMessageDialog(Casilla.this, e);
 							            System.out.println(e);
 							            c.setIcon(tableroBack.get(c.getCoordenada()));
 							    		JAjedrez.tablero.get(casillaDestino).setIcon(tableroBack.get(casillaDestino));
 							        } catch (appGameOver e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+										JOptionPane.showMessageDialog(Casilla.this, e);
 									}
 									
 									
@@ -167,7 +167,7 @@ public class Casilla extends JLabel{
 	/* le pregunto a la capa de negocios los movimientos permitidos para la pieza en esta casilla*/
 	public ArrayList<String> getMovimientos() {
 		ArrayList<String> arrayMovimientosPermitidos = new ArrayList<String>(Arrays.asList("D6","E6","F6"));
-		/* VACÕO ArrayList<String> arrayMovimientosPermitidos = new ArrayList<String>();*/
+		/* VAC√çO ArrayList<String> arrayMovimientosPermitidos = new ArrayList<String>();*/
 		return arrayMovimientosPermitidos;
 	}
 	
@@ -199,7 +199,7 @@ public class Casilla extends JLabel{
 	
 		
 	private Rectangle getPosicionCasilla() {
-		// Coordenadas de la Casilla (construyo el rect·ngulo)
+		// Coordenadas de la Casilla (construyo el rect√°ngulo)
 		// Rectangle(int x, int y, int width, int height)
 		Rectangle r = new Rectangle(this.getLocationOnScreen().x,
 									this.getLocationOnScreen().y,
