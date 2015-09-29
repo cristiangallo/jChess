@@ -55,8 +55,10 @@ public class ControladorJugarPartida {
         return partidaActual;
     }
 
-    public void addJugador (Jugador jugador) {
-        if(catalogoJugadores.getByDni(jugador.getDni()) == null){
+    public void addJugador (int dni, String nombre, String apellido) throws appException {
+        if ( nombre ==null || apellido==null ) throw new appException("Falta nombre o apellido");
+        if(catalogoJugadores.getByDni(dni) == null){
+            Jugador jugador = new Jugador(dni, nombre, apellido);
             catalogoJugadores.save(jugador);
         }
     }
