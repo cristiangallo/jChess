@@ -808,6 +808,7 @@ public class JAjedrez extends JComponent {
 				textJugadorNegras.setText("");
 			}
 		});
+		
 		buttonNuevaPartida.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -832,10 +833,7 @@ public class JAjedrez extends JComponent {
 					JAjedrez.tablero.get(casillas[i-1]).setPieza("");
 					JAjedrez.tablero.get(casillas[i-1]).setIcon(null);
 				}
-							    
-			    
-			    //armarTablero(p);
-				
+		
 				
 			}
 		});
@@ -845,7 +843,7 @@ public class JAjedrez extends JComponent {
 				if(buttonJugar.isEnabled()){clickBotonJugar();}
 			}
 		});
-		// VALIDAR EN CAPA DE NEGOCIO QUE NO SE INGRESEN DATOS VACÍOS
+
 		buttonAddJugador.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -883,7 +881,7 @@ public class JAjedrez extends JComponent {
             Jugador jugador = controladorJugarPartida.buscarJugadorBlanco(dni);
             if (jugador != null) {
                 lblJugadorBlancas.setText(jugador.getNombre() +" "+ jugador.getApellido());
-                labelJB.setText(controladorJugarPartida.getJugadorBlancoActual().getNombre()+" "+controladorJugarPartida.getJugadorBlancoActual().getNombre());
+                labelJB.setText(controladorJugarPartida.getJugadorBlancoActual().getNombre()+" "+controladorJugarPartida.getJugadorBlancoActual().getApellido());
                 //lblUnoVsDos.setText(controladorJugarPartida.getJugadorBlancoActual().getNombre()+" ...VS... "+controladorJugarPartida.getJugadorNegroActual().getNombre());
                 if(controladorJugarPartida.getJugadorNegroActual()==null){
                 	textJugadorNegras.requestFocus();
@@ -960,11 +958,7 @@ public class JAjedrez extends JComponent {
 			   		textApellido.requestFocus();
 			   	}
 			} else {
-			   Jugador nuevoJugador = new Jugador();
-			   nuevoJugador.setDni(Integer.parseInt(textDNI.getText()));
-			   nuevoJugador.setNombre(textNombre.getText());
-			   nuevoJugador.setApellido(textApellido.getText());
-			   controladorJugarPartida.addJugador(nuevoJugador);
+			   controladorJugarPartida.addJugador(Integer.parseInt(textDNI.getText()), textNombre.getText(), textApellido.getText());
 			   JOptionPane.showMessageDialog(JAjedrez.this, "Jugador guardado exitosamente");
 			   if (lblColor.getText() == "blancas") {
 				   textJugadorBlancas.setText(textDNI.getText());
@@ -978,6 +972,9 @@ public class JAjedrez extends JComponent {
 			}
 		} catch(NumberFormatException e) {
 			JOptionPane.showMessageDialog(JAjedrez.this, "DNI incorrecto.");
+		} catch (appException e) {
+			JOptionPane.showMessageDialog(JAjedrez.this, "Datos incompletos.");
+			e.printStackTrace();
 		}
 	}
 

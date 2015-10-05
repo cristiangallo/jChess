@@ -7,13 +7,15 @@ import java.awt.Point;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.TransferHandler;
 
 
 
-import appExceptions.appException;
 
+import appExceptions.appException;
 import appExceptions.appGameOver;
+
 
 //import com.sun.javafx.geom.Rectangle;
 import java.awt.Rectangle;
@@ -115,12 +117,12 @@ public class Casilla extends JLabel{
 							    		c.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 										
 									} catch (appException e){
+										JOptionPane.showMessageDialog(Casilla.this, e);
 							            System.out.println(e);
 							            c.setIcon(tableroBack.get(c.getCoordenada()));
 							    		JAjedrez.tablero.get(casillaDestino).setIcon(tableroBack.get(casillaDestino));
 							        } catch (appGameOver e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+							        	JOptionPane.showMessageDialog(Casilla.this, e);
 									}
 									
 									
